@@ -19,7 +19,17 @@ const default_options = {
   printBackground: true,
   timeout: TIMEEOUT,
 };
-const _args = ["--headless", "--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu", "--no-zygote", "--single-process"];
+const _args = [
+  "--disable-gpu",
+  "--disable-dev-shm-usage",
+  "--disable-setuid-sandbox",
+  "--no-first-run",
+  "--no-sandbox",
+  "--no-zygote",
+  "--deterministic-fetch",
+  "--disable-features=IsolateOrigins",
+  "--disable-site-isolation-trials",
+];
 
 export default class PdfService {
   constructor(html = "", option = {}) {
@@ -37,7 +47,8 @@ export default class PdfService {
     try {
       browser = await puppeteer.launch({
         args: _args,
-        headless: true,
+        headless: "new",
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
       });
 
       const page = await browser.newPage();

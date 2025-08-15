@@ -6,11 +6,10 @@ const app = express();
 
 // Register App level middleware
 app.use(express.json());
-app.use(ErrorHandler); // Error handler
 app.use(Logger); // Logger
 app.use(express.static("public"));
-
 app.use("/pdf", Router);
+app.use(ErrorHandler); // Error handler
 
 const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {

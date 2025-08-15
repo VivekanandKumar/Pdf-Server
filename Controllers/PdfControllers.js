@@ -1,13 +1,13 @@
 import axios from "axios";
 import path from "node:path";
-import AppError from "../utils/AppError.js";
-import PdfService from "../utils/PdfService.js";
+import AppError from "../Utils/AppError.js";
+import PdfService from "../Utils/PdfService.js";
 import fs from "node:fs";
 
 const generatePdf = async (req, res, next) => {
   try {
     const { compress = false, upload = false, htmlFileUrl, orgID, appID, options = {} } = req.body;
-    if (!htmlFileUrl) next(new AppError("Html File url missing", 400));
+    if (!htmlFileUrl) return next(new AppError("Html File url missing", 400));
     const HtmlContent = await getHtmlContent(htmlFileUrl);
     const service = new PdfService(HtmlContent, options);
     const generatedPdf = await service.Generate();
@@ -26,7 +26,7 @@ const generatePdf = async (req, res, next) => {
     return res.json(generatedPdf);
   } catch (error) {
     console.error(error);
-    next(error.message, 500);
+    return next(error.message, 500);
   }
 };
 
