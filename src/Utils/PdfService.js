@@ -37,8 +37,8 @@ export default class PdfService {
     this.html = html;
     this.originalFileName = `Original-${randomUUID()}.pdf`;
     this.compressedFileName = `Compressed-${randomUUID()}.pdf`;
-    this.originalFilepath = path.resolve("public", this.originalFileName);
-    this.compressedFilepath = path.resolve("public", this.compressedFileName);
+    this.originalFilepath = path.resolve("src/public", this.originalFileName);
+    this.compressedFilepath = path.resolve("src/public", this.compressedFileName);
     this.options.path = this.originalFilepath;
   }
 

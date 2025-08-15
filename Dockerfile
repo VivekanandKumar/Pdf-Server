@@ -21,7 +21,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 # Copy app source
-COPY . .
+COPY ./src ./src
 
 # Create directories & give permissions to existing node user
 RUN mkdir -p /home/node/Downloads /app/pdf-server \
