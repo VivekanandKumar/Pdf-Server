@@ -43,7 +43,8 @@ const getPdf = async (req, res, next) => {
 
     fileStream.on("data", (chunk) => {
       downloaded += chunk.length;
-      console.log(`Progress: ${((downloaded / fileSize) * 100).toFixed(2)}%`);
+      const percentage = (downloaded / fileSize) * 100;
+      showProgress(percentage);
     });
     fileStream.on("error", (err) => {
       console.error("❌ File stream error:", err);
@@ -70,6 +71,16 @@ async function getHtmlContent(url) {
   } catch (error) {
     return Promise.reject(error);
   }
+}
+
+function showProgress(percentage) {
+  const barLength = 50; // total bar length in characters
+  const filledLength = Math.round((percentage / 100) * barLength);
+  const bar = "=".repeat(filledLength) + " ".repeat(barLength - filledLength);
+  process.stdout.clearLine(); // clear current line
+  process.stdout.cursorTo(0); // move cursor to start
+  process.stdout.write(`Download Progress - [${bar}] ${percentage.toFixed(2)}%`);
+  if (percentage >= 100) console.log("\n");
 }
 
 export { generatePdf, getPdf };
