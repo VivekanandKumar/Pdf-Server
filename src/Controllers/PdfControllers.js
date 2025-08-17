@@ -26,7 +26,7 @@ const generatePdf = async (req, res, next) => {
     return res.json(generatedPdf);
   } catch (error) {
     console.error(error);
-    return next(error.message, 500);
+    return next(new AppError(error.message, 500));
   }
 };
 
