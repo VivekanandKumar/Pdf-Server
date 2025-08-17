@@ -23,12 +23,6 @@ RUN npm ci --only=production
 # Copy app source
 COPY ./src ./src
 
-# Create directories & give permissions to existing node user
-RUN mkdir -p /home/node/Downloads /app/pdf-server \
-    && chown -R node:node /home/node /app/pdf-server
-
-USER node
-
 EXPOSE 4001
 
 CMD ["npm", "start"]

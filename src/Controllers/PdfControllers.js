@@ -1,8 +1,8 @@
 import axios from "axios";
+import fs from "node:fs";
 import path from "node:path";
 import AppError from "../Utils/AppError.js";
 import PdfService from "../Utils/PdfService.js";
-import fs from "node:fs";
 
 const generatePdf = async (req, res, next) => {
   try {
